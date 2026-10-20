@@ -1,0 +1,402 @@
+[
+  {
+    "path": ".gitignore",
+    "sha256": "955f9c822ff3ed629dd4062bbe04e6c3589345c1d8dc6d602d8b01f6bbe89fec"
+  },
+  {
+    "path": "CONTRIBUTING.md",
+    "sha256": "0e265e9cb9001e5a4fd5d5bca3ef2cc29d4a1f5e6a81273605322bd787d00fe9"
+  },
+  {
+    "path": "LICENSE",
+    "sha256": "0ea2349ea9c55e97811e3e538cb35293b6fa08534bc5744970720a34bd6cacc7"
+  },
+  {
+    "path": "README.md",
+    "sha256": "0b8134244b6ad2a6af7f69f97e6ded3cc38dc534762f99c6ca5ae5f50e77ca7c"
+  },
+  {
+    "path": "SECURITY.md",
+    "sha256": "839069d67455cc1176cad1e53c2acb22c11c785314ca02d99933549984c62379"
+  },
+  {
+    "path": "docs/RELEASE-0.2.0.md",
+    "sha256": "114f3f879a8a9ea33a0578a2e2621538cd99efceeddbd9dc9b76d12e68c27b84"
+  },
+  {
+    "path": "docs/accepted-scope-v0.1.csv",
+    "sha256": "ada5c1698eb38cbfe8e8debe57bc531cc2ce4d02b6aa286b42cfdeea9a6e64ee"
+  },
+  {
+    "path": "docs/local-closeout.json",
+    "sha256": "5a82784f75f09b19fbe03f8378410ac3e1da76121f16b5b6f78e83d4c170eab2"
+  },
+  {
+    "path": "docs/local-validation-summary.json",
+    "sha256": "13b7614487b19e9bc13e1458ac30a8b88500788ca3f2529692c0c2ee5e0fd043"
+  },
+  {
+    "path": "docs/三期分期核验修复-0.1.5.txt",
+    "sha256": "65cc5df318c8487bb9e822bc0188b50e27cc46cf7d0371f3a667a4d44f773f52"
+  },
+  {
+    "path": "docs/分期生成账单维护-0.1.4.txt",
+    "sha256": "2bf71e3c06a30e7354fe9dabc9ad7f71fc7526f908bc8d1006974a35ccff9527"
+  },
+  {
+    "path": "docs/原生能力边界核对-20261018.txt",
+    "sha256": "16a2a31681db6d2d5c986b3612f4830b2d3e1738cd001800c1aacc8df4135792"
+  },
+  {
+    "path": "docs/发送留证与原请求恢复-0.1.8.txt",
+    "sha256": "3f8de11075b9ed1cd05ca142e73d42348f5c1dfad8fa79fd51e91474aa0f08a2"
+  },
+  {
+    "path": "docs/后续重点原生结论-20261018.txt",
+    "sha256": "b568813ee600f53c97554580bfc19b3a382fd2d72aed05afd5a54c03de65cef4"
+  },
+  {
+    "path": "docs/普通新增账接续与账户复核-0.2.0.txt",
+    "sha256": "06933cdceaecf86459b8cc39e5998dd7997279aaebafe3ff8d0ff74a2a1a087a"
+  },
+  {
+    "path": "docs/本机场景进度与剩余清单.txt",
+    "sha256": "d6a11da7e2870de1e75f332fb465e2723eb705e1a12cb95907ee5d82b85b4a16"
+  },
+  {
+    "path": "docs/本机收尾交付说明.txt",
+    "sha256": "70109bf0e8dfedaa9f16bad14adf213679625a795dccffeed5374cefacaae028"
+  },
+  {
+    "path": "docs/本机能力验收-v0.1.csv",
+    "sha256": "a0c39ecf12fde6731c95890131fdf02192f4b188761bca585f87f35d1e2c4a28"
+  },
+  {
+    "path": "docs/本机补齐审阅与取舍-20261018.txt",
+    "sha256": "3021fd6f1dbc3a69006f133422da08b8384f02dbec003123a9f592c24838a91f"
+  },
+  {
+    "path": "docs/独立审阅与修复-0.1.3.txt",
+    "sha256": "83d8de773ca9c17a56932bcceaecf9515780e1e29d0e3e0c7122b7e4af719df4"
+  },
+  {
+    "path": "docs/独立审阅与修复-0.1.4.txt",
+    "sha256": "3bb51db8d04f61b3ac6445774845f937ba7dc0f1b0acd40a65a07963cfa91ffe"
+  },
+  {
+    "path": "docs/独立审阅与修复-v0.1.txt",
+    "sha256": "7a6fdd1e2c660c735bd82ae7bb982b60623514ed0489c623806a0886a04e3f74"
+  },
+  {
+    "path": "docs/独立审阅报告-0.1.1.txt",
+    "sha256": "95860cc58842b06471d9aadb769040c5c1516a8bc1ef5eaea8b35034b1c9f9e0"
+  },
+  {
+    "path": "docs/通用挂起跟进与任务生命周期-0.1.9.txt",
+    "sha256": "b87e384de1598806c96bcc783a364a07daf2b3ea890ab860a1c0b51b4918e550"
+  },
+  {
+    "path": "docs/零费分期核验修复-0.1.6.txt",
+    "sha256": "f12299a3c616eeb0e6e2def400349e99509d7c6f72e26ddc97123214e70448b8"
+  },
+  {
+    "path": "pyproject.toml",
+    "sha256": "9285e9613f222f3a42a02aa6a75a518b2b97d6ecd8e00b30ecd6186707f71e99"
+  },
+  {
+    "path": "qianji_agent/__init__.py",
+    "sha256": "5e57931301971ce44c45ce022be4197f282d9b2ba498e810937432f81700a62f"
+  },
+  {
+    "path": "qianji_agent/__main__.py",
+    "sha256": "cf7390a2508a0fcad4777a4a629fc5212ab655cb45845975995f835676a834e3"
+  },
+  {
+    "path": "qianji_agent/account_watch.py",
+    "sha256": "ef8de6ab074b1ed86daf0215356d6090de48f706c40d3a5b55bfe58ffa4a00a7"
+  },
+  {
+    "path": "qianji_agent/attachments.py",
+    "sha256": "39dbb2d2219009a3bc84ae294e1891fa28f3522ec8cfc04e8b8351e471ed6b23"
+  },
+  {
+    "path": "qianji_agent/auth.py",
+    "sha256": "7348983f85c24d6e806d16cbe3ab143fd4831c8fb589bdfb721480a47b819ebc"
+  },
+  {
+    "path": "qianji_agent/capabilities.json",
+    "sha256": "2d11c59d65845a9bde4cb02ace2388a8b0e267af5bc6e9f14fba015964d0e024"
+  },
+  {
+    "path": "qianji_agent/cli.py",
+    "sha256": "98d3d7665b4e52b378579443d9e6746f053f309f00d00a960652e5d3c18b6ac1"
+  },
+  {
+    "path": "qianji_agent/codec.py",
+    "sha256": "5fbf5c3fc89aa114b39068ef66a49863e9562a4c3e0c376418700bae2ea35aec"
+  },
+  {
+    "path": "qianji_agent/continuation.py",
+    "sha256": "191e86896a5894ae675f8d59d913b20234f1e2713684f9e9c74d812c75727f39"
+  },
+  {
+    "path": "qianji_agent/credit.py",
+    "sha256": "0dcaa63ef159e105dcfb7141531c72c98d696da2e6dc1327a6dc0ba6f56698f2"
+  },
+  {
+    "path": "qianji_agent/debt_history.py",
+    "sha256": "e361418c3bca574400de6d752b753629b4f98ee1630b4f76037482ce74fe2dbd"
+  },
+  {
+    "path": "qianji_agent/dispatch.py",
+    "sha256": "6ff8885b2c189d55c9459588a1eab1acd423b7a3d154fbd92cb3490124c1ecea"
+  },
+  {
+    "path": "qianji_agent/engine.py",
+    "sha256": "cffe4b438803dc14b663d22352e794a143e08357a7f16a5e10f1ea6603d2ad6f"
+  },
+  {
+    "path": "qianji_agent/fees.py",
+    "sha256": "a3ad38b7b08a1ffda78b79797f760d0884979bac264a836e4c12eabbdb154900"
+  },
+  {
+    "path": "qianji_agent/image_content.py",
+    "sha256": "b82e9068d48a9a0bdfa049d7d8454d4b073f6a9d29bdfb8b65927fde7fc3698e"
+  },
+  {
+    "path": "qianji_agent/installment_bills.py",
+    "sha256": "15618c90696b7117673e4dcb18fd27034aa50579fe786f772aa2a96ae9961697"
+  },
+  {
+    "path": "qianji_agent/isolation.py",
+    "sha256": "bca348a373e0e5a90c613ffd2480680cc75674af2a866fafa02885f73f9d2938"
+  },
+  {
+    "path": "qianji_agent/journal.py",
+    "sha256": "63824039d6d341b6acb24cf7a4029799668a146bd0ce5f026b555ba02bfe9a19"
+  },
+  {
+    "path": "qianji_agent/linked.py",
+    "sha256": "656ef5b82662fc8f85b38ecf9fa4a459434b0b2cb634e862e8979978a2efa0ef"
+  },
+  {
+    "path": "qianji_agent/models.py",
+    "sha256": "a80256466af9c10f2e4af18cfb461380d1670f69a000ff1d7b3608461a4ce15f"
+  },
+  {
+    "path": "qianji_agent/operations.py",
+    "sha256": "27228e5403d742163ce2b23fa83cc4446a5b284633c658dd2327a6857a6843c5"
+  },
+  {
+    "path": "qianji_agent/profiles/mac-1580.json",
+    "sha256": "5078c2f45a1777b02aa9b80a263e8a3b4d026fabfa4545a1d9fec5f06e3798d1"
+  },
+  {
+    "path": "qianji_agent/readers.py",
+    "sha256": "7b5cdeb75a1dc23f3c001b2f0375bd18b7f6e254d1ec31df1030390c4ab513a1"
+  },
+  {
+    "path": "qianji_agent/recovery.py",
+    "sha256": "202232f286631b832a712b79fa4f1ac44fa558168623ca0fa3a0342b64868d6b"
+  },
+  {
+    "path": "qianji_agent/refunds.py",
+    "sha256": "d1cb3ca60bc79a308bc49ca3bf99fea0ba35ae04e2b28ff0b48758f84568d75d"
+  },
+  {
+    "path": "qianji_agent/scheduled_bills.py",
+    "sha256": "32cd3179c65220f2d1e7a70b82b068c6c8a5d4f9cd03e52a2fed5c4b06ddb7cb"
+  },
+  {
+    "path": "qianji_agent/server.py",
+    "sha256": "284abbace79484ae1f017ab617e302c754fd53579576146b05748b402b41bd54"
+  },
+  {
+    "path": "qianji_agent/transport.py",
+    "sha256": "dd43f1251902d4837565c40807dd95434a8855c365535aae25dbc138f96b47b7"
+  },
+  {
+    "path": "requirements.lock.txt",
+    "sha256": "90313a93d4ca5c8d6dc8dd6aabbc556a9700bbc9eba3e6deafb60c16a1a46aad"
+  },
+  {
+    "path": "skills/qianji-bookkeeping/SKILL.md",
+    "sha256": "738f59494f3e4b636673e1efcee3b17a3e3b3e2853fac7f79657b3750554f931"
+  },
+  {
+    "path": "skills/qianji-bookkeeping/references/recovery.md",
+    "sha256": "bf23eda04c3d7e4e4f6a4487c3e3897db258ff5349ec49193f0f966691a70f6f"
+  },
+  {
+    "path": "tests/stdio_continuation_driver.py",
+    "sha256": "f12433b0a51e106689ddadc1616a2682564614c9ece73debf6891544ed00d459"
+  },
+  {
+    "path": "tests/test_account_halts.py",
+    "sha256": "78e05f5a3a97af4756c8295f9f9ab3412d79e6c4b912251a42eea6c9fc62db27"
+  },
+  {
+    "path": "tests/test_account_review.py",
+    "sha256": "0fe2ded6ab780316f17fd1629d34fcc0018b28fe9153f7cb389a78fc2e92b8aa"
+  },
+  {
+    "path": "tests/test_attachment_content.py",
+    "sha256": "d230c7fe7c1faade72b3453d1afba712fb9b2f844d5303c1d5c32f35b1992657"
+  },
+  {
+    "path": "tests/test_business.py",
+    "sha256": "95bda0fcfc731b6136499eaad3788164d7987cb1f4e0415ec3c90a61964cf78e"
+  },
+  {
+    "path": "tests/test_completion_review.py",
+    "sha256": "80ee0b8382fd4da50ca7768895012ecc04ec3c195885164be4735d04b55e345b"
+  },
+  {
+    "path": "tests/test_connection.py",
+    "sha256": "c8372a626616709430485fac5c2f4835a974939b7df7f16299597b9ff66c4656"
+  },
+  {
+    "path": "tests/test_continuation_final_observation.py",
+    "sha256": "950146cb290afb74a57561023e30a224d8ec5a93f02c9634f46bf88855a63b09"
+  },
+  {
+    "path": "tests/test_continuation_mcp.py",
+    "sha256": "9a76deb3497055af432a7d4ddd80cacd3d98a69dcb9f1eee7dd75d3b3244a693"
+  },
+  {
+    "path": "tests/test_continuation_review_regressions.py",
+    "sha256": "72b61605fb147d49ceb5763709a48d2b52f77e882d2ea8a26baa20023210911e"
+  },
+  {
+    "path": "tests/test_continuation_scope.py",
+    "sha256": "ce3396353a112bc78566a85dfff40576bd3d042c73f0cc4ef551aa11942a9494"
+  },
+  {
+    "path": "tests/test_continuation_stdio.py",
+    "sha256": "d4d016233b659dd9fd8124fe63a27bf862ed1f779384877b44723fdfe49fc75a"
+  },
+  {
+    "path": "tests/test_continuation_visibility_debt.py",
+    "sha256": "dd0c16628bd4f713cde5b97a51ba3ffd6552db8841a85ff2c2834eea634b13f4"
+  },
+  {
+    "path": "tests/test_credit_dates.py",
+    "sha256": "012f024152f6bf1015db58f62bbdbdab55fe10d9d27f7aac311fd9e50cc93c1d"
+  },
+  {
+    "path": "tests/test_credit_share.py",
+    "sha256": "f1afc31610eaf9dec3ec6bec930e88800716e47b9c4d802f22db1a3111ed532c"
+  },
+  {
+    "path": "tests/test_cross_fees.py",
+    "sha256": "1382cf92a134479cd3aa07b37c0893789d79ccd625db735caa11199a1218789c"
+  },
+  {
+    "path": "tests/test_debt_history.py",
+    "sha256": "d351768e65ef1c340dfd59ac1fbd0e30cda5fa2350f6d45a8a78cf3bf21a7e6b"
+  },
+  {
+    "path": "tests/test_delivery_tools.py",
+    "sha256": "04f1114485942521db113d5a36ceb3c20a506e6c9fa75c66c8b70f0a5a678288"
+  },
+  {
+    "path": "tests/test_details.py",
+    "sha256": "64882da83ce232bf5b29804a514f23c2e6bce06ab756ac6032bb83611067e085"
+  },
+  {
+    "path": "tests/test_dispatch_evidence.py",
+    "sha256": "0061a33a980aeceaf888f4be1dc8d0c6f06c0142a47f7ebe4f48347861346227"
+  },
+  {
+    "path": "tests/test_engine.py",
+    "sha256": "70559a767fb06609cf977f00b716a9bc9f6a4dcb9bc8e7b2e6dedac562ecf62c"
+  },
+  {
+    "path": "tests/test_foreign_refunds.py",
+    "sha256": "ce43493666f7d48ddf4772db1a84dbe474d68ba7794f8dc1354571b2d49ee31e"
+  },
+  {
+    "path": "tests/test_installment_bills.py",
+    "sha256": "3113156d02f3fed88f15628ee1fb5f5db1a38f7cd7df7704b9cccc880b498526"
+  },
+  {
+    "path": "tests/test_installment_remaining_summary.py",
+    "sha256": "7a7078f406ca80017a6159510f8dbbd8444a2610caddfb1568689058995ba412"
+  },
+  {
+    "path": "tests/test_integrity.py",
+    "sha256": "19741307404609e32b11119d940a9618e7f8d14ae6cabc39bcf7e8d2d27c53c6"
+  },
+  {
+    "path": "tests/test_journal.py",
+    "sha256": "3d76d01cf6ccd4dc06164a1a00096719d8220b84b50ad2185410cae7dcc5aee5"
+  },
+  {
+    "path": "tests/test_linked.py",
+    "sha256": "76d6785fc7eab00461b2d36d9d00b7edd2214699ae5cefabf6c5640f7b9e4fa2"
+  },
+  {
+    "path": "tests/test_local_completion.py",
+    "sha256": "e92ed28a560f2bb35f2e26e28426d6a71b177f101d199c8b9809ba96a37b4448"
+  },
+  {
+    "path": "tests/test_mcp.py",
+    "sha256": "0e51dc0662cc47908f3aa61f3812cd86607d37f5473ad674036feb6270727f9c"
+  },
+  {
+    "path": "tests/test_recovery.py",
+    "sha256": "1f0c61ddd0c656e8d5593984982a4ae6307f3bc4cb21644a255934daa3b83f38"
+  },
+  {
+    "path": "tests/test_recovery_integration.py",
+    "sha256": "8b5cd4d9f99bb204badf17f16e797c131d6d6b668cffff22c762e4067105f472"
+  },
+  {
+    "path": "tests/test_recovery_lifecycle.py",
+    "sha256": "146a6450a5d2988921edd804fed19af8eceb8d64923122d9a850f18175419277"
+  },
+  {
+    "path": "tests/test_recovery_mcp.py",
+    "sha256": "b958c36023e7c6155ef363637639b931f0bcb1311985f47f2fd69c612300e30a"
+  },
+  {
+    "path": "tests/test_release_version.py",
+    "sha256": "0fce488659eb9fc7c6d6abddd4fd278d5310a735ea3b3d9ef7e6a505070032cf"
+  },
+  {
+    "path": "tests/test_repeat_reconfigure.py",
+    "sha256": "f30cf1a2d521ef6cb821721a26669cd4950d221264dd6100ec50b3d39ccea8d3"
+  },
+  {
+    "path": "tests/test_review_regressions.py",
+    "sha256": "9d66c3105271bb59c659a1ce45e6257cc94c13bd2c7d689fb02efc4bff85658e"
+  },
+  {
+    "path": "tests/test_scheduled_bills.py",
+    "sha256": "c203eeea6db5450bd852fa8b67ee34ff99a584dea7f0c72af2a7d2c41563f83f"
+  },
+  {
+    "path": "tests/test_scheduled_refund_delete.py",
+    "sha256": "4335c0d0c139327d6d84266b69f0a346b2934f21cc4b566963b099928fd247ad"
+  },
+  {
+    "path": "tests/test_service_guard.py",
+    "sha256": "27c3f2cbcf52f481ffdd3ddf3d3963d0fae877fbadd3bc76ec60fe5045fbe8b6"
+  },
+  {
+    "path": "tools/build_capabilities.py",
+    "sha256": "16bf2113e22726f5c7e6d2c14f4ca892e85b2a28611fba54ef9f2cc0e7693fce"
+  },
+  {
+    "path": "tools/build_delivery.py",
+    "sha256": "4f4a3c969882a466e52f2770a259561e6faaa682d6d05552880d8ab337a3855d"
+  },
+  {
+    "path": "tools/build_release.py",
+    "sha256": "38554f8e93714caa02e6ede17ee70af4254eca7f1d0865719fd7ecc97daeaa27"
+  },
+  {
+    "path": "tools/verify_delivery.py",
+    "sha256": "e5ea36252de0523418a0dafb361c5a26f1e2b6727d55de7c590197546cfe8143"
+  }
+]

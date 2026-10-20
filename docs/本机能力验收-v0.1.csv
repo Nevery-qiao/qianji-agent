@@ -1,0 +1,49 @@
+﻿编号,范围,操作,本机状态,限制,证据
+R01,账本,列表读取,validated,账本编号、名称与归属投影；本机完整读取2本。,local-basic-20261018-a/restoration-followup.json
+R02,账户,列表读取,validated,active/hidden/finished/all统一枚举；隐藏与已结清借贷按真实编号在隔离原生测试查回，公开version可维护。,local-completion-20261018-a/final.json;local-concurrency-20261018-a/final.json
+R03,分类,列表及层级读取,validated,指定账本展开两层分类；按编号消歧，层级上限保护。,local-basic-20261018-a/restoration-followup.json;local-advanced-20261018-a/final.json
+R04,账目,后台拉取,partial,已实现服务端游标、lasttimes累计、多页合并与循环/重复/上限拒绝；当前真实数据尚未触发服务端多页，分页合成测试通过。,local-completion-20261018-a/final.json;tests-current.log
+R05,标签,查询与分组,validated,标签分组、原生状态及不透明编号；标签增改归档删已实测。,local-basic-20261018-a/restoration-followup.json;local-details-20261018-a/final.json
+R06,账目,筛选查询与详情,validated,编号、账本、账户、分类、类型、关键词与时间组合已实际查询；since含起点/until不含终点、完整源后本地分页。,local-completion-20261018-a/final.json;tests-current.log
+R07,连接,连接状态与失效重连,partial,每次调用重读同机官方登录态；账号及版本变化阻止写入；真实会话自然到期未观察。,tests-current.log;../../p0/extended-validation-20261018.json
+R08,能力,能力与兼容状态,validated,连接检查、动作清单和48组限制一起返回；代码开放与整体验收分开。,tests-current.log
+O01,账本,创建、修改、归档及原生支持的删除,partial,专用账本创建/改名/隐藏恢复/空本删除实测；默认账本改名、成员与权限设置未开放。,local-basic-20261018-a/restoration-followup.json;local-final-native-20261018-a/final.json
+O02,账户,创建、修改、归档及原生支持的删除,partial,45种账户模板/4大类代表创建删除、额度/日期/计总资产已验；固定日与账单后天数、清除额度、共享/解除及主卡保护已实测。子卡额度可能缓存，按shareid查询主卡。充值赠送金等专属设置及非CNY基础币未验。,local-remaining-native-20261018-a/final.json;local-credit-share-probe-20261018-a/final.json;local-fee-account-20261018-a/final.json;tests-current.log
+O03,分类,创建、修改、归档及原生支持的删除,partial,根/子分类创建改名、移父级、原生升降级与删除已验；同本同类、无第三层保护。尚未找到原生分类归档契约，不冒充删除。,local-completion-20261018-a/final.json;local-expanded-20261018-a/final.json;tests-current.log
+O04,标签,创建、修改、归档及原生支持的删除,validated,标签组及标签创建/改名、组间移动、标签归档与删除实测；安装版MCP已仅凭公开标签version完成维护。,local-basic-20261018-a/restoration-followup.json;local-expanded-20261018-a/final.json;local-post-review-20261018-a/final.json
+B01,基础账目,支出,validated,CNY支出；精确编号、字段和现金余额核验。,local-basic-20261018-a/restoration-followup.json;local-mcp-20261018-a/final.json
+B02,基础账目,收入,validated,CNY收入；字段及余额核验。,local-basic-20261018-a/restoration-followup.json
+B03,基础账目,转账,validated,CNY转账；amount为转入净额，fee另扣转出侧，两侧余额回读。,local-basic-20261018-a/restoration-followup.json;local-details-20261018-a/final.json
+B04,基础账目,信用卡还款,validated,原生信用卡还款类型3及两侧余额；CNY账户。,local-linked-20261018-a/final.json
+B05,基础账目,补记,validated,指定带偏移的历史交易时间，与新创建时间分开。,local-basic-20261018-a/restoration-followup.json
+B06,基础账目,修改,partial,普通/外币、退款/借贷及5类周期子账维护已验；新增保留分期计划的CNY生成支出修改，费用拆分和父计划回读不变。未覆盖报销结算等全部关联形状。,local-installment-bill-public-20261018-a/final.json;local-remaining-native-20261018-a/final.json;local-business-gap-20261018-a/final.json;tests-current.log
+B07,基础账目,复制,partial,普通/外币及周期副本已验；分期生成支出可复制为普通支出，保留总额、移除分期费用拆分和任务关联，原单及计划不变。不泛化全部关联类型。,local-installment-bill-public-20261018-a/final.json;local-remaining-native-20261018-a/final.json;tests-current.log
+B08,基础账目,删除,partial,普通、退款、借贷、保留周期/分期任务的生成账单及提前还款成对清理已验；分期删账不减少原计划执行期数。未覆盖报销等全部关联类型。,local-installment-bill-public-20261018-a/final.json;local-remaining-native-20261018-a/final.json;tests-current.log
+L01,退款,全额退款,validated,CNY原生全额退款、双向标记及余额；不伪造收入。,local-linked-20261018-a/final.json
+L02,退款,部分与多次退款,validated,CNY部分/多次/跨账户/跨日期、原币累计限额；CNY基础币下USD退款到CNY/USD账户及切换到账账户已原生验证，不猜汇率。,local-business-gap-20261018-a/final.json;local-refund-probe-20261018-a/final.json;local-cross-refund-probe-20261018-a/final.json;tests-current.log
+L03,退款,原生支持的修改与撤销,validated,CNY及显式外币退款增改删、双向标记与余额回读已验；新增周期/分期生成支出退款的删除，校验关联并保持原计划不变，不泛化混合关联历史维护。,docs/本机收尾交付说明.txt;local-business-gap-20261018-a/final.json;tests-current.log
+L04,报销,垫付,validated,正式产品原生type5垫付创建、现金扣款和删除回读实测；后续报销结算另见L05。,local-expanded-20261018-a/final.json
+L05,报销,全部与分次入账,blocked,当前官方接口要求公测升级，已证实拒绝且无入账；不改账号、不以收入代替。,../../p0/extended-validation-20261018.json
+L06,报销,取消入账,blocked,报销入账受阻，无法验证原生取消；当前操作返回unsupported。,../../p0/extended-validation-20261018.json
+L07,债务,借入与借出,validated,借入51/借出52，原生来源账单、债务与现金余额联动。,local-linked-20261018-a/final.json
+L08,债务,追加,validated,追加借入和借出本金及双侧余额。,local-linked-20261018-a/final.json
+L09,债务,偿还与收回,validated,偿还和收回本金、剩余本金及余额，超额阻止。,local-linked-20261018-a/final.json
+L10,债务,利息,validated,独立原生利息支出10/收入11，债务本金不受利息影响。,local-linked-20261018-a/final.json
+L11,债务,结清及原生支持的记录维护,partial,本金/还款/利息双版本历史维护已验；结清后仅非金额维护。虚拟原生探针确认改还款金额会留下已结清且剩余本金非零，故继续拒绝，不能伪称工具自动重新结清。,local-closed-debt-probe-20261018-a/final.json;local-business-gap-20261018-a/final.json;tests-current.log
+T01,周期,创建、查询、修改、启停、结束与删除,validated,5类任务、6种周期、增改启停删和结束条件已分支实测；新增更换周期、账户、账本与分类，历史账单不变；后台若同时生成新账单则核对归属、金额及新旧账户余额。,local-remaining-native-20261018-a/final.json;local-reconfigure-verified-20261018-a/final.json;local-linked-20261018-a/final.json;tests-current.log
+T02,周期,实际执行与补执行,pending_observation,首笔原生预生成已观察；真实时钟跨越试验创建时已提前扣款，到点未新增，不能证明跨日/补执行/无App调度。未来执行、时区切换仍未观察。,local-live-repeat-20261018-a/final.json;local-linked-20261018-a/final.json
+T03,分期,创建、查询、修改及原生支持的删除,partial,带费/无费分期创建、费用/余数分配、配置删除和生成支出专用维护已原生验收；官方不支持改已添加任务本金/期数，工具遵循。正在执行任务的代表分支已验，全部完成状态/混合关联未逐一覆盖。 0.1.5修正三期样本揭示的原生money/fee剩余总额核验；旧0.1.4失败保留，修复续测另记。0.1.6仅在明确总费及剩余费用均零时接受原生省略分配方式；原0.1.5失败保留。,local-installment-bill-public-20261018-a/final.json;local-fee-account-20261018-a/final.json;docs/分期生成账单维护-0.1.4.txt;tests-current.log;docs/三期分期核验修复-0.1.5.txt;docs/零费分期核验修复-0.1.6.txt
+T04,分期,实际执行与提前还款,partial,带费/无费提前还款、双向关系/余额及清理已验；编辑或删除已出账后，仍按原计划和执行期数算剩余本金，首/末余数与首期/平均费用代表分支通过。未来跨月执行未观察。 0.1.5修正三期样本揭示的原生money/fee剩余总额核验；旧0.1.4失败保留，修复续测另记。0.1.6仅在明确总费及剩余费用均零时接受原生省略分配方式；原0.1.5失败保留。,local-installment-bill-public-20261018-a/final.json;local-installed-completion-20261018-a/final.json;docs/分期生成账单维护-0.1.4.txt;tests-current.log;docs/三期分期核验修复-0.1.5.txt;docs/零费分期核验修复-0.1.6.txt
+F01,附件,上传及账目关联,partial,0.1.7有效PNG经严格TLS的官方billimg/!huge下载，定向RGBA像素完全一致，上传哈希及账单关联通过；服务可能重编码，像素证明不等于原文件字节证明。损坏/动画/超24MP拒绝；带EXIF的JPEG严格HTTPS返回200但有损重编码，仅报告存储证明；全部图片属性组合未覆盖，删账不保证删云端文件。,docs/本机收尾交付说明.txt;tests-current.log
+F02,币种,原生币种与换算,partial,CNY基础币下原币收支、USD账户增改复制删、CNY↔USD转账带费用、外币退款换账户原生通过；本金/到账/费用CNY值显式给出，不猜汇率。非CNY基础币未验。,local-business-gap-20261018-a/final.json;local-currency-20261018-a/final.json;local-refund-probe-20261018-a/final.json;local-cross-refund-probe-20261018-a/final.json;local-cross-fee-probe-20261018-a/final.json;tests-current.log
+F03,标记,统计与预算标记,partial,统计/预算四种原生bit组合回读，并按AOT聚合谓词核对；不是整个App原生统计/预算总表验收，关联场景未全覆盖。,local-reconfigure-flags-20261018-a/final.json;local-details-20261018-a/final.json;tests-current.log
+F04,费用,手续费及原生支持的优惠,partial,CNY实付优惠及跨币转账费用增改复制删已验；补同一原生比率下本金/费用分钱舍入一致性检查，不可表达的双汇率明确拒绝。完整报表及其他优惠类型未验。,local-business-gap-20261018-a/final.json;docs/后续重点原生结论-20261018.txt;tests-current.log
+F05,组合属性,多账本、分类、账户与标签,partial,专用非默认账本、现金/信用、父子分类和标签组合实测；未逐一覆盖所有组合。,local-basic-20261018-a/restoration-followup.json;local-details-20261018-a/final.json;local-advanced-20261018-a/final.json
+Q01,可靠性,重复调用与请求冲突,validated,稳定请求号持久去重、异内容冲突、不同交易不合并；实际MCP重复请求只记一笔。,local-mcp-20261018-a/final.json;tests-current.log
+Q02,可靠性,超时、取消、断开与重启恢复,partial,实际落账后丢回复、中断真实进程、重启只查原请求找回同一笔；待核实不重发。模拟故障与原生证据分开，未诱导真实服务端故障。,local-mcp-20261018-a/final.json;local-recovery-move-20261018-a/final.json;tests-current.log
+Q03,可靠性,多Agent同时调用,validated,0.1.6两个独立实际stdio MCP进程共用默认记录库：同时同请求仅一次真实发送/一笔，异请求同命令产生两笔；专用数据清理且原账摘要一致。不同记录库无全局防重保证。,docs/本机收尾交付说明.txt;local-concurrency-20261018-a/final.json;tests-current.log
+Q04,可靠性,多步部分成功与外部冲突,partial,独立回执与未知屏障、原生外部版本变化拒绝已验；后台无CAS，不承诺官方App同时写或多指令原子性。,local-recovery-move-20261018-a/final.json;tests-current.log
+Q05,兼容,钱迹更新与后台变化,partial,官方App保持原样；精确版本/业务哈希锁定、错误分类与未知结构拒绝；未来版本尚无适配。,tests-current.log
+Q06,交付,实际本机和远程Agent接入,partial,实际本机SDK stdio及当前Codex主客户端完整记账、防重和清理已验证；跨机及其他客户端仍待验。,local-mcp-20261018-a/final.json
+Q07,交付,备份、升级和恢复,validated,0.1.0安装版→当前源码同一绝对记录库、备份恢复旧指令同回执且原生仅一笔；未知状态恢复仍靠合成故障验证。相对目录公开入口拒绝。,local-concurrency-20261018-a/final.json;tests-current.log
+Q08,交付,完整范围审计,validated,48组逐项公开真实状态与限制，保留原P0结论；不宣称全部通过。,docs/本机能力验收-v0.1.csv

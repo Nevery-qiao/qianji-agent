@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=77,<90"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qianji-agent"
+version = "0.2.0"
+description = "Local background Qianji bookkeeping MCP and Skill"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "Nevery-qiao"}]
+requires-python = ">=3.12"
+dependencies = ["mcp==2.3.0", "cryptography==50.0.2", "pydantic==2.14.1", "pillow==13.0.0"]
+
+[project.urls]
+Homepage = "https://github.com/Nevery-qiao/qianji-agent"
+Repository = "https://github.com/Nevery-qiao/qianji-agent"
+Issues = "https://github.com/Nevery-qiao/qianji-agent/issues"
+
+[project.scripts]
+qianji-agent = "qianji_agent.cli:main"
+qianji-agent-mcp = "qianji_agent.server:main"
+
+[tool.setuptools.packages.find]
+include = ["qianji_agent*"]
+
+[tool.setuptools.package-data]
+qianji_agent = ["profiles/*.json", "capabilities.json"]
+
+[tool.setuptools.data-files]
+"share/qianji-agent/skills/qianji-bookkeeping" = ["skills/qianji-bookkeeping/SKILL.md"]
+"share/qianji-agent/skills/qianji-bookkeeping/references" = ["skills/qianji-bookkeeping/references/recovery.md"]
+
+"share/qianji-agent/docs" = ["docs/RELEASE-0.2.0.md", "CONTRIBUTING.md", "SECURITY.md", "README.md", "docs/本机能力验收-v0.1.csv", "docs/accepted-scope-v0.1.csv", "docs/独立审阅与修复-v0.1.txt", "docs/local-validation-summary.json", "docs/本机场景进度与剩余清单.txt", "docs/本机补齐审阅与取舍-20261018.txt", "docs/独立审阅报告-0.1.1.txt", "docs/独立审阅与修复-0.1.3.txt", "docs/后续重点原生结论-20261018.txt", "docs/分期生成账单维护-0.1.4.txt", "docs/独立审阅与修复-0.1.4.txt", "docs/原生能力边界核对-20261018.txt", "docs/三期分期核验修复-0.1.5.txt", "docs/零费分期核验修复-0.1.6.txt", "docs/本机收尾交付说明.txt", "docs/local-closeout.json"]
+
+"share/qianji-agent/recovery" = ["docs/发送留证与原请求恢复-0.1.8.txt", "docs/通用挂起跟进与任务生命周期-0.1.9.txt", "docs/普通新增账接续与账户复核-0.2.0.txt"]

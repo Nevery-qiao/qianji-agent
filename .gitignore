@@ -1,0 +1,23 @@
+# Python build and local runtime
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.DS_Store
+# Private account, financial evidence and configuration
+.env
+.env.*
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.db
+*.plist
+*.private.json
+evidence/
+private/
+local-state/
+config.local.*

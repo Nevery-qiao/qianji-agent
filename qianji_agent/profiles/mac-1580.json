@@ -1,0 +1,13 @@
+{
+  "sha256": "753d3a94b5058dbcfb4238b4b054daa1de7ea6e77fa634c030ab8aa9640e0706",
+  "build": "1580",
+  "dart": "3.11",
+  "key": "hgpP0QMj0dB6j2YxmL5GcRzvYv8cQsY4MetQIHu7H5A=",
+  "iv": "hKAIYc6AcDWQjpaREdGU2w==",
+  "salts": [
+    "1172020",
+    "michaeljackson",
+    "free20140216&x_*1127"
+  ],
+  "provenance": "Static protocol constants from official macOS4.5.9/build1580; no user credential or device data."
+}

@@ -1,0 +1,170 @@
+"""Reconcile the accepted 48-group scope; evidence paths are relative, no personal IDs."""
+import csv,json,tomllib
+from pathlib import Path
+root=Path(__file__).resolve().parents[1]
+source=root/'docs/accepted-scope-v0.1.csv'
+# Status applies to the whole original group, never extrapolated from one representative case.
+notes={
+'R01':('validated','账本编号、名称与归属投影；本机完整读取2本。','basic'),
+'R02':('partial','活动账户列表和按编号读取隐藏/已结清账户；未交付全部状态的统一枚举。','advanced/mcp'),
+'R03':('validated','指定账本展开两层分类；按编号消歧，层级上限保护。','basic/advanced'),
+'R04':('partial','当前518条全量读取；hasmore非0停止，尚无多页续拉适配。','basic'),
+'R05':('validated','标签分组、原生状态及不透明编号；标签增改归档删已实测。','basic/details'),
+'R06':('partial','账目ID/账本/账户/分类/类型/时间/关键字筛选与投影；合成边界验证，实际MCP已用于定位。未覆盖所有原生搜索组合。','mcp/tests'),
+'R07':('partial','每次调用重读同机官方登录态；账号及版本变化阻止写入；真实会话自然到期未观察。','tests/p0'),
+'R08':('validated','连接检查、动作清单和48组限制一起返回；代码开放与整体验收分开。','tests'),
+'O01':('partial','新建、改名、空账本删除实测；默认账本改名、归档及多人权限未开放。','basic'),
+'O02':('partial','现金/信用/原生模板创建、改名、隐藏恢复、删除实测；不支持全部资产种类和设置编辑。','basic/advanced/mcp'),
+'O03':('partial','根/子分类创建、改名保留父级、无引用删除；重挂父级有保护测试，归档及全量层级调整未验。','basic/advanced/tests'),
+'O04':('partial','标签组和标签创建删除、标签改名换色归档实测；组改名及组间移动未做原生验收。','basic/details'),
+'B01':('validated','CNY支出；精确编号、字段和现金余额核验。','basic/mcp'),
+'B02':('validated','CNY收入；字段及余额核验。','basic'),
+'B03':('validated','CNY转账；amount为转入净额，fee另扣转出侧，两侧余额回读。','basic/details'),
+'B04':('validated','原生信用卡还款类型3及两侧余额；CNY账户。','linked'),
+'B05':('validated','指定带偏移的历史交易时间，与新创建时间分开。','basic'),
+'B06':('partial','普通收支/转账/还款/垫付的受限修改、最新版本检测；关联退款/报销/债务/任务记录不能当普通账改。外币修改仅合成验证。','basic/tests'),
+'B07':('partial','普通可编辑记录复制生成新编号并保持原记录；关联业务复制被拒绝。','basic'),
+'B08':('partial','普通、退款、已移除任务关联及借还款测试记录删除实测；提前还款记录需显式成对删除。不覆盖所有原生关联类型。','basic/linked/advanced'),
+'L01':('validated','CNY原生全额退款、双向标记及余额；不伪造收入。','linked'),
+'L02':('partial','部分、多次和累计上限实测；跨账户/跨日组合未做产品验收，外币退款拒绝。','linked'),
+'L03':('validated','CNY原生退款修改与删除，原单累计标记和余额回读。','linked'),
+'L04':('partial','原生type5垫付已在P0实测；正式产品已实现同类型，产品独立回归尚未覆盖。','p0/tests'),
+'L05':('blocked','当前官方接口要求公测升级，已证实拒绝且无入账；不改账号、不以收入代替。','p0'),
+'L06':('blocked','报销入账受阻，无法验证原生取消；当前操作返回unsupported。','p0'),
+'L07':('validated','借入51/借出52，原生来源账单、债务与现金余额联动。','linked'),
+'L08':('validated','追加借入和借出本金及双侧余额。','linked'),
+'L09':('validated','偿还和收回本金、剩余本金及余额，超额阻止。','linked'),
+'L10':('validated','独立原生利息支出10/收入11，债务本金不受利息影响。','linked'),
+'L11':('partial','零本金结清及已结清对象/记录维护和删除实测；借贷历史记录修改未开放。','linked/advanced'),
+'T01':('partial','收支周期任务、6种周期、创建/修改/启停/删除和次数结束条件已实现；转账/还款任务等组合未开放，日期结束及收入周期未实测。','linked/advanced/mcp'),
+'T02':('pending_observation','创建时原生首笔出账已观察；未来跨日、补执行和时区切换未观察，工具没有自建调度器。','linked'),
+'T03':('partial','CNY信用卡两期分期、余数入首期、统计配置和删除实测；不支持改本金/期数/完整费率方案。','linked/advanced'),
+'T04':('partial','CNY剩余本金提前还款、原生支出/还款关联、配置及清理实测；费用非零及未来跨月执行未验。','advanced'),
+'F01':('partial','PNG/JPEG内容上传与账单图片键关联实测；存储哈希通过，图片域名HTTPS证书错误阻止内容复读；不关闭TLS。删除账单不保证清除云端文件。','details'),
+'F02':('partial','USD原币0.01→CNY账户/基础币0.07实测；需显式双金额。不支持非CNY基础币、外币账户、跨币转账或外币退款。','details/tests'),
+'F03':('partial','统计/预算bit1/2持久回读实测；未验所有关联场景以及预算/统计报表汇总结果。','details'),
+'F04':('partial','转账手续费与CNY支出优惠实测；优惠amount为实付、discount为优惠，不据此声称全部统计报表一致。','details/mcp'),
+'F05':('partial','专用非默认账本、现金/信用、父子分类和标签组合实测；未逐一覆盖所有组合。','basic/details/advanced'),
+'Q01':('validated','稳定请求号持久去重、异内容冲突、不同交易不合并；实际MCP重复请求只记一笔。','mcp/tests'),
+'Q02':('partial','实际落账后隐藏回复、凭稳定编号与余额核验，MCP重启不重发；未知状态重启/中止靠合成故障测试，未诱导真实服务故障。','mcp/tests'),
+'Q03':('partial','两个真正独立进程共用账号锁/记录库的合成后端竞争，只发送一次；实际双Agent同时写账未验。','tests'),
+'Q04':('partial','每条指令独立回执、未知结果阻止后续写入、版本冲突检查；服务器无CAS，不承诺多指令或官方App并发原子性。','tests/linked'),
+'Q05':('partial','官方App保持原样；精确版本/业务哈希锁定、错误分类与未知结构拒绝；未来版本尚无适配。','tests'),
+'Q06':('partial','实际本机SDK stdio及当前Codex主客户端完整记账、防重和清理已验证；跨机及其他客户端仍待验。','mcp'),
+'Q07':('partial','共享防重复记录备份/恢复后旧未知请求不重发，账号不匹配拒绝；没有历史产品版本可做跨版本升级演练。','tests'),
+'Q08':('validated','48组逐项公开真实状态与限制，保留原P0结论；不宣称全部通过。','matrix'),
+}
+notes.update({
+ 'O01':('partial','专用账本创建/改名/隐藏恢复/空本删除实测；默认账本改名、成员与权限设置未开放。','basic/final_native'),
+ 'O03':('partial','根/子分类创建、改名保留父级、原生移动子分类及无引用删除实测；升降级和归档未开放。','basic/expanded/tests'),
+ 'O04':('validated','标签组及标签创建/改名、组间移动、标签归档与删除实测；安装版MCP已仅凭公开标签version完成维护。','basic/expanded/post_review'),
+ 'L02':('validated','CNY部分/多次/跨账户/跨日期退款、累计上限和双向关系核验；外币退款拒绝。','linked/expanded'),
+ 'L04':('validated','正式产品原生type5垫付创建、现金扣款和删除回读实测；后续报销结算另见L05。','expanded'),
+ 'T01':('validated','本机时区下收支/转账/还款/垫付5种任务、6种周期、增改启停删、次数/日期结束保存已分支实测；不把所有组合或未来执行算通过。','linked/advanced/expanded/final_native/mcp'),
+ 'T03':('partial','CNY信用卡无手续费两期分期、余数入首期、统计配置及删除实测；带费分期创建、改本金/期数等完整方案明确拒绝。','linked/advanced/tests'),
+ 'T04':('partial','CNY无费/另付0.01手续费的提前还款、双向关联与两侧余额及清理实测；未来跨月执行未观察。','advanced/final_native'),
+})
+notes.update({
+ 'R02':('validated','active/hidden/finished/all统一枚举；隐藏与已结清借贷按真实编号在隔离原生测试查回，公开version可维护。','completion/concurrency'),
+ 'R04':('partial','已实现服务端游标、lasttimes累计、多页合并与循环/重复/上限拒绝；当前真实数据尚未触发服务端多页，分页合成测试通过。','completion/tests'),
+ 'R06':('validated','编号、账本、账户、分类、类型、关键词与时间组合已实际查询；since含起点/until不含终点、完整源后本地分页。','completion/tests'),
+ 'O02':('partial','现金/信用/充值/投资4大类模板原生创建删除；信用额度/日期/计总资产修改及隐藏恢复已验。CNY基础币下USD账户已验；未开放全部专属设置。','fee_account/currency/advanced'),
+ 'O03':('partial','根/子分类创建改名、移父级、原生升降级与删除已验；同本同类、无第三层保护。尚未找到原生分类归档契约，不冒充删除。','completion/expanded/tests'),
+ 'T03':('partial','无费及平均/首期/末期总手续费创建、分钱余数首/末期、配置、删除和首笔/下一期金额原生核验；已执行计划本金/期数修改未开放，未来执行另见T04。','fee_account/advanced/tests'),
+ 'F02':('partial','CNY基础币下原币收支与USD账户增改复制删、CNY↔USD双向转账及余额原生通过；显式三金额。同币一致校验；跨币手续费、外币退款与非CNY基础币仍未开放。','currency/tests'),
+ 'Q03':('validated','两个真正独立本机进程共用账号锁/记录库，同时提交同一指令，仅一次真实后台发送、同一回执且只落一笔；不保证不同记录库防重。','concurrency/tests'),
+ 'Q07':('validated','0.1.0安装版→当前源码同一绝对记录库、备份恢复旧指令同回执且原生仅一笔；未知状态恢复仍靠合成故障验证。相对目录公开入口拒绝。','concurrency/tests'),
+})
+notes.update({
+ 'B06':('partial','普通收支/转账/还款/垫付及USD收支修改、换账户/账本分类和版本冲突已原生验证；关联退款/报销/债务/任务仍须专用维护，不冒充普通账目。','basic/currency/recovery_move/tests'),
+ 'B07':('partial','普通5类及USD收支复制生成新编号、字段/余额保留；关联业务复制明确拒绝，不能声称所有原生类型都可复制。','basic/currency/recovery_move'),
+ 'B08':('partial','普通、退款、借贷、已移除任务的带费分期子账及提前还款成对维护已验；不覆盖未开放的全部关联类型。','linked/advanced/fee_account/currency/recovery_move'),
+ 'Q02':('partial','实际落账后丢回复、中断真实进程、重启只查原请求找回同一笔；待核实不重发。模拟故障与原生证据分开，未诱导真实服务端故障。','mcp/recovery_move/tests'),
+ 'Q04':('partial','独立回执与未知屏障、原生外部版本变化拒绝已验；后台无CAS，不承诺官方App同时写或多指令原子性。','recovery_move/tests'),
+})
+notes.update({
+ 'T04':('partial','CNY带费/无费分期提前还款、已付手续费不抵本金、显式本次费用、双向关联及清理原生通过；首期已付费与平均分摊尚有余费两种已验。未来跨月执行仍未观察。','advanced/final_native/installed_completion/tests'),
+})
+notes.update({
+ 'L02':('validated','CNY部分/多次/跨账户/跨日期、原币累计限额；CNY基础币下USD退款到CNY/USD账户及切换到账账户已原生验证，不猜汇率。','business_gap/refund_probe/cross_refund_probe/tests'),
+ 'L03':('validated','CNY及显式外币退款增改删、原单双向标记、原币额度、到账账户币金额和余额回读已验。','business_gap/refund_probe/tests'),
+ 'L11':('partial','零本金结清、已结清对象维护和删除；新增debt_bill_update双版本维护本金/还款/利息金额、时间和备注，loan总本金/已还及余额核验。已结清记录仅非金额维护，金额改变须另适配。','business_gap/debt_probe/tests'),
+ 'B06':('partial','普通5类及USD收支修改、换账户/本、版本冲突；退款/借贷用专用动作，外币退款和债务金额修改已验；其余关联类型不冒充普通账。','business_gap/recovery_move/tests'),
+ 'F02':('partial','CNY基础币下原币收支、USD账户增改复制删、CNY↔USD转账带费用、外币退款换账户原生通过；本金/到账/费用CNY值显式给出，不猜汇率。非CNY基础币未验。','business_gap/currency/refund_probe/cross_refund_probe/cross_fee_probe/tests'),
+ 'F04':('partial','CNY支出优惠实付不二次减；跨币转账来源fee+显式fee_base_amount、gross来源扣款一次，双向增改复制删原生通过；不声称全部报表和其他优惠类型一致。','business_gap/cross_fee_probe/details/tests'),
+ 'O02':('partial','后台45种账户模板分4大类；现金/信用/充值/投资代表模板原生创建删除、信用额度/日期/计总资产已验。共享额度/赠送金等专属设置未适配，非CNY基础币未验。','fee_account/currency/tests'),
+})
+notes.update({
+ 'O02':('partial','45种账户模板/4大类代表创建删除、额度/日期/计总资产已验；固定日与账单后天数、清除额度、共享/解除及主卡保护已实测。子卡额度可能缓存，按shareid查询主卡。充值赠送金等专属设置及非CNY基础币未验。','remaining/credit_probe/fee_account/tests'),
+ 'B06':('partial','普通5类、USD收支、退款/借贷专用维护已验；新增保留周期任务的5类子账专用修改，双版本且父任务不变。分期等其余关联类型仍未全覆盖。','remaining/business_gap/recovery_move/tests'),
+ 'B07':('partial','普通5类与USD收支、5类周期任务生成账单复制已验；周期副本脱离任务，父任务不变。分期等其余关联业务仍拒绝。','remaining/currency/recovery_move/tests'),
+ 'B08':('partial','普通、退款、借贷、保留周期任务的5类子账、已移除分期及提前还款成对删除已验；不覆盖未开放的全部关联类型。','remaining/linked/fee_account/tests'),
+ 'L11':('partial','本金/还款/利息双版本历史维护已验；结清后仅非金额维护。虚拟原生探针确认改还款金额会留下已结清且剩余本金非零，故继续拒绝，不能伪称工具自动重新结清。','closed_probe/business_gap/tests'),
+ 'T01':('validated','5类任务、6种周期、增改启停删和结束条件已分支实测；新增更换周期、账户、账本与分类，历史账单不变；后台若同时生成新账单则核对归属、金额及新旧账户余额。','remaining/reconfigure_verified/linked/tests'),
+ 'T02':('pending_observation','首笔原生预生成已观察；真实时钟跨越试验创建时已提前扣款，到点未新增，不能证明跨日/补执行/无App调度。未来执行、时区切换仍未观察。','live_repeat/linked'),
+ 'T03':('partial','带费/无费创建、费用/余数分配、配置/删除和首笔/下一期核验通过。官方明确已添加任务不支持改本金/期数；任务主体遵循原生限制，仍未开放保留任务的分期子账专用维护。','fee_account/advanced/native_boundary/tests'),
+ 'F03':('partial','统计/预算四种原生bit组合回读，并按AOT聚合谓词核对；不是整个App原生统计/预算总表验收，关联场景未全覆盖。','reconfigure_flags/details/tests'),
+ 'F04':('partial','CNY实付优惠及跨币转账费用增改复制删已验；补同一原生比率下本金/费用分钱舍入一致性检查，不可表达的双汇率明确拒绝。完整报表及其他优惠类型未验。','business_gap/native_boundary/tests'),
+})
+notes.update({
+ 'B06':('partial','普通/外币、退款/借贷及5类周期子账维护已验；新增保留分期计划的CNY生成支出修改，费用拆分和父计划回读不变。未覆盖报销结算等全部关联形状。','installment_public/remaining/business_gap/tests'),
+ 'B07':('partial','普通/外币及周期副本已验；分期生成支出可复制为普通支出，保留总额、移除分期费用拆分和任务关联，原单及计划不变。不泛化全部关联类型。','installment_public/remaining/tests'),
+ 'B08':('partial','普通、退款、借贷、保留周期/分期任务的生成账单及提前还款成对清理已验；分期删账不减少原计划执行期数。未覆盖报销等全部关联类型。','installment_public/remaining/tests'),
+ 'T03':('partial','带费/无费分期创建、费用/余数分配、配置删除和生成支出专用维护已原生验收；官方不支持改已添加任务本金/期数，工具遵循。正在执行任务的代表分支已验，全部完成状态/混合关联未逐一覆盖。','installment_public/fee_account/installment_contract/tests'),
+ 'T04':('partial','带费/无费提前还款、双向关系/余额及清理已验；编辑或删除已出账后，仍按原计划和执行期数算剩余本金，首/末余数与首期/平均费用代表分支通过。未来跨月执行未观察。','installment_public/installed_completion/installment_contract/tests'),
+})
+for rid in ('T03','T04'):
+ status,limit,evidence=notes[rid]
+ notes[rid]=(status,limit+' 0.1.5修正三期样本揭示的原生money/fee剩余总额核验；旧0.1.4失败保留，修复续测另记。0.1.6仅在明确总费及剩余费用均零时接受原生省略分配方式；原0.1.5失败保留。',evidence+'/remaining_summary/zero_fee_summary')
+notes.update({
+ 'F01':('partial','0.1.7有效PNG经严格TLS的官方billimg/!huge下载，定向RGBA像素完全一致，上传哈希及账单关联通过；服务可能重编码，像素证明不等于原文件字节证明。损坏/动画/超24MP拒绝；带EXIF的JPEG严格HTTPS返回200但有损重编码，仅报告存储证明；全部图片属性组合未覆盖，删账不保证删云端文件。','local_closeout/tests'),
+ 'L03':('validated','CNY及显式外币退款增改删、双向标记与余额回读已验；新增周期/分期生成支出退款的删除，校验关联并保持原计划不变，不泛化混合关联历史维护。','local_closeout/business_gap/tests'),
+ 'Q03':('validated','0.1.6两个独立实际stdio MCP进程共用默认记录库：同时同请求仅一次真实发送/一笔，异请求同命令产生两笔；专用数据清理且原账摘要一致。不同记录库无全局防重保证。','local_closeout/concurrency/tests'),
+})
+refs={
+'local_closeout':'docs/本机收尾交付说明.txt',
+'remaining_summary':'docs/三期分期核验修复-0.1.5.txt',
+'zero_fee_summary':'docs/零费分期核验修复-0.1.6.txt',
+'installment_public':'local-installment-bill-public-20261018-a/final.json',
+'installment_contract':'docs/分期生成账单维护-0.1.4.txt',
+'remaining':'local-remaining-native-20261018-a/final.json',
+'credit_probe':'local-credit-share-probe-20261018-a/final.json',
+'closed_probe':'local-closed-debt-probe-20261018-a/final.json',
+'live_repeat':'local-live-repeat-20261018-a/final.json',
+'reconfigure_flags':'local-reconfigure-flags-20261018-a/final.json',
+'reconfigure_verified':'local-reconfigure-verified-20261018-a/final.json',
+'native_boundary':'docs/后续重点原生结论-20261018.txt',
+'business_gap':'local-business-gap-20261018-a/final.json',
+'refund_probe':'local-refund-probe-20261018-a/final.json',
+'cross_refund_probe':'local-cross-refund-probe-20261018-a/final.json',
+'cross_fee_probe':'local-cross-fee-probe-20261018-a/final.json',
+'debt_probe':'local-debt-history-probe-20261018-b/final.json',
+'installed_completion':'local-installed-completion-20261018-a/final.json',
+'completion':'local-completion-20261018-a/final.json',
+'fee_account':'local-fee-account-20261018-a/final.json',
+'concurrency':'local-concurrency-20261018-a/final.json',
+'currency':'local-currency-20261018-a/final.json',
+'recovery_move':'local-recovery-move-20261018-a/final.json',
+'basic':'local-basic-20261018-a/restoration-followup.json',
+'linked':'local-linked-20261018-a/final.json',
+'details':'local-details-20261018-a/final.json',
+'advanced':'local-advanced-20261018-a/final.json',
+'expanded':'local-expanded-20261018-a/final.json',
+'final_native':'local-final-native-20261018-a/final.json',
+'post_review':'local-post-review-20261018-a/final.json',
+'mcp':'local-mcp-20261018-a/final.json',
+'tests':'tests-current.log',
+'p0':'../../p0/extended-validation-20261018.json',
+'matrix':'docs/本机能力验收-v0.1.csv',
+}
+with source.open(encoding='utf-8-sig',newline='') as f:old=list(csv.DictReader(f))
+assert len(old)==len(notes)==48
+caps=[]
+for row in old:
+ rid=row['编号'];status,limit,ev=notes[rid];caps.append({'id':rid,'scope':row['范围'],'operation':row['操作'],'status':status,'limits':limit,'evidence':[refs[x] for x in ev.split('/')]})
+release=tomllib.loads((root/'pyproject.toml').read_text())['project']['version']+'-local-preview'
+(root/'qianji_agent/capabilities.json').write_text(json.dumps({'adapter':'macOS official 4.5.9/build1580','release':release,'whole_scope_complete':False,'groups':caps},ensure_ascii=False,indent=2)+'\n')
+with (root/'docs/本机能力验收-v0.1.csv').open('w',encoding='utf-8-sig',newline='') as f:
+ w=csv.DictWriter(f,fieldnames=['编号','范围','操作','本机状态','限制','证据']);w.writeheader()
+ for r in caps:w.writerow(dict(zip(w.fieldnames,[r['id'],r['scope'],r['operation'],r['status'],r['limits'],';'.join(r['evidence'])])))
+print('48 groups reconciled; whole_scope_complete=false')

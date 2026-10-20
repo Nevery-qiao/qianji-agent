@@ -1,0 +1,254 @@
+{
+  "schema": 2,
+  "counts_mean": "final records per isolated journal; duplicate request ids across different test journals counted separately and incident retained",
+  "whole_scope_complete": false,
+  "runs": [
+    {
+      "scope": "basic",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 31
+      }
+    },
+    {
+      "scope": "linked",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 45
+      }
+    },
+    {
+      "scope": "details",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 21
+      }
+    },
+    {
+      "scope": "advanced",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "failed": 1,
+        "verified": 33
+      }
+    },
+    {
+      "scope": "mcp",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 13
+      }
+    },
+    {
+      "scope": "expanded",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "failed": 1,
+        "verified": 28
+      }
+    },
+    {
+      "scope": "final-native",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 25
+      }
+    },
+    {
+      "scope": "post-review",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 25
+      }
+    },
+    {
+      "scope": "completion",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 12
+      }
+    },
+    {
+      "scope": "fee-account",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 23
+      }
+    },
+    {
+      "scope": "concurrency",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 18
+      }
+    },
+    {
+      "scope": "currency",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "failed": 2,
+        "verified": 22
+      }
+    },
+    {
+      "scope": "recovery-move",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 32
+      }
+    },
+    {
+      "scope": "installed-completion",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 21
+      }
+    },
+    {
+      "scope": "refund-probe",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 17
+      }
+    },
+    {
+      "scope": "cross-fee-probe",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 10
+      }
+    },
+    {
+      "scope": "cross-refund-probe",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 11
+      }
+    },
+    {
+      "scope": "debt-history-initial-probe",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "failed": 1,
+        "verified": 4
+      }
+    },
+    {
+      "scope": "debt-history-fixed-probe",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 22
+      }
+    },
+    {
+      "scope": "business-gap-public-stdio",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 35
+      }
+    },
+    {
+      "scope": "live-repeat",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 8
+      }
+    },
+    {
+      "scope": "credit-share-probe",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 8
+      }
+    },
+    {
+      "scope": "remaining-public-stdio",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 48
+      }
+    },
+    {
+      "scope": "closed-debt-probe",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 11
+      }
+    },
+    {
+      "scope": "reconfigure-flags",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 25
+      }
+    },
+    {
+      "scope": "reconfigure-verified",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 25
+      }
+    },
+    {
+      "scope": "installment-bill-probe",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 15
+      }
+    },
+    {
+      "scope": "installment-bill-public-stdio",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 23
+      }
+    },
+    {
+      "scope": "misdirected-test-journal",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 1
+      },
+      "covered_by_parent_final_snapshot": true
+    },
+    {
+      "scope": "currency-contract-cleanup",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 2
+      },
+      "covered_by_parent_final_snapshot": true
+    },
+    {
+      "scope": "debt-probe-explicit-cleanup",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 6
+      },
+      "covered_by_parent_final_snapshot": true
+    },
+    {
+      "scope": "codex-host",
+      "original_snapshot_matches": true,
+      "unique_operation_states": {
+        "verified": 8
+      }
+    }
+  ],
+  "total_unique_states": {
+    "verified": 628,
+    "failed": 5
+  },
+  "capability_groups": {
+    "validated": 25,
+    "partial": 20,
+    "blocked": 2,
+    "pending_observation": 1
+  },
+  "raw_original_records_saved": false,
+  "full_original_snapshot_saved": false,
+  "private_journal_contains_verification_refs_and_balances": true,
+  "credentials_in_receipts": false,
+  "cross_machine_tested": false,
+  "automatic_future_execution_observed": false
+}
