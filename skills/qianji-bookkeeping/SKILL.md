@@ -5,6 +5,12 @@ description: Use when an Agent should query or change the user's Qianji books, a
 
 # 钱迹后台记账
 
+## 首次接入先识别环境
+
+先核实 Agent 的 MCP 命令实际在钱迹所在 Mac 运行，还是云端/另一台机器；再查平台真实支持 stdio 命令或远程 MCP URL。品牌名称、诊断进程是 Mac、能远程执行 Mac shell，都不能代替这项核对。安装本项目后可用 qianji-agent-connect 离线判断；缺信息先补齐，不把 ready_for_validation 当接通。路线见[通用接入指南](https://github.com/Nevery-qiao/qianji-agent/blob/main/docs/AGENT-CONNECTION.md)。
+
+同机且支持 stdio 才配置 Mac 绝对路径。云端且支持 URL 时连接 Mac 上的鉴权 HTTPS 只读入口；云端仅支持 stdio 时明确缺口，不复制登录材料或新建 journal。远程 access_mode=remote_readonly、operations=[] 是当前权限事实，只能调用列出的五工具。不能因后文介绍完整业务而尝试财务 CLI/SDK、preview、execute、旧 status、ack 或 scheduler。实际平台握手、工具、完整恢复分页和 fresh 账户复核通过，才称远程只读接通；正式写入和生产交班另按真实授权及验收。
+
 调用已安装的 `qianji-agent` MCP。首次使用前，用户需要正常登录自己的钱迹官方App。连接失败先区分具体原因：只有实际确认登录已失效才请本人在官方App重登；app_access_denied是当前进程读取受限，不能据此当登录过期，不反复重登或改账号。按正常权限/宿主连接方式处理，不复制凭据绕过。不要要求绑定邮箱、改变账号或修改App。
 
 先用 `qianji_connection` 检查连接，`qianji_capabilities` 查看当前开放动作；能力清单与安装包验收矩阵中的限制优先于猜测。没有支持的业务返回缺口，不能把报销、退款或债务伪装成普通收支，也不能改用界面操作。
