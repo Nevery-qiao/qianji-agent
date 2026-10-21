@@ -8,15 +8,18 @@ from contextlib import contextmanager
 from .codec import dumps,loads
 
 class Journal:
- def __init__(self,root,owner):
+ def __init__(self,root,owner,existing_only=False,expected_identity=None):
+  self.expected_identity=expected_identity
+  self.existing_only=existing_only
   self.root=Path(root).expanduser().absolute()
   if self.root.is_symlink():raise ValueError('unsafe_state_path')
-  self.root.mkdir(mode=0o700,parents=True,exist_ok=True)
+  if not existing_only:self.root.mkdir(mode=0o700,parents=True,exist_ok=True)
   if self.root.stat().st_uid!=os.getuid() or self.root.stat().st_mode&0o077:raise ValueError('unsafe_state_permissions')
   self.path=self.root/'operations.sqlite3'
-  fd=os.open(self.path,os.O_CREAT|os.O_RDWR|os.O_NOFOLLOW,0o600)
+  fd=os.open(self.path,(0 if existing_only else os.O_CREAT)|os.O_RDWR|os.O_NOFOLLOW,0o600)
   try:
    if os.fstat(fd).st_uid!=os.getuid() or os.fstat(fd).st_mode&0o077:raise ValueError('unsafe_state_permissions')
+   if self.expected_identity is not None and (os.fstat(fd).st_dev,os.fstat(fd).st_ino)!=self.expected_identity:raise ValueError('original_journal_changed')
   finally:os.close(fd)
   self.owner=hashlib.sha256(owner.encode()).hexdigest()
   with self.lock(),self.db() as c:
@@ -34,8 +37,14 @@ class Journal:
  def __repr__(self):return '<Journal: private local state>'
  @contextmanager
  def db(self):
-  c=sqlite3.connect(self.path,timeout=30)
+  def check_identity():
+   if self.expected_identity is not None:
+    st=self.path.lstat()
+    if (st.st_dev,st.st_ino)!=self.expected_identity:raise ValueError('original_journal_changed')
+  check_identity()
+  c=sqlite3.connect(self.path.as_uri()+'?mode=rw',uri=True,timeout=30) if self.existing_only else sqlite3.connect(self.path,timeout=30)
   try:
+   check_identity()
    c.execute('PRAGMA synchronous=FULL');c.execute('PRAGMA journal_mode=DELETE')
    with c:yield c
   finally:c.close()

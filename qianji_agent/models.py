@@ -84,6 +84,7 @@ class Receipt(BaseModel):
  model_config=ConfigDict(extra='forbid')
  state:str
  runtime_version:str|None=None
+ access_mode:Literal['remote_readonly']|None=None
  backup_created:bool|None=None
  recovery:dict[str,Any]|None=None
  tracking:dict[str,Any]|None=None

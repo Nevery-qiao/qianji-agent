@@ -67,9 +67,9 @@ def public_row(row):
  out['version']=digest(row);return out
 
 class Engine:
- def __init__(self,transport,owner,state_dir=None,session_guard=None):
+ def __init__(self,transport,owner,state_dir=None,session_guard=None,existing_journal=False,journal_identity=None):
   self.transport=transport;self.owner=owner;self.session_guard=session_guard;self._last_account_review=None
-  self.journal=Journal(state_dir or Path.home()/'Library/Application Support/qianji-agent',owner)
+  self.journal=Journal(state_dir or Path.home()/'Library/Application Support/qianji-agent',owner,existing_only=existing_journal,expected_identity=journal_identity)
   with self.journal.lock():self.journal.activate_continuation('continuation-v1')
  def __repr__(self):return '<Engine: private connection omitted>'
  def snapshot(self,extended=False):
